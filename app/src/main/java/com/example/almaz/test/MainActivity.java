@@ -1,5 +1,7 @@
 package com.example.almaz.test;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -13,12 +15,31 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.example.almaz.test.Model.ClothesSet;
+import com.example.almaz.test.Model.Weather;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    final Uri CLOTHES_URI = Uri
+            .parse("content://almaz.example.com.test/contacts");
+    final String CLOTHES_NAME = "name";
+    final String CLOTHES_LAYOUT = "layout";
+    final String CLOTHES_TEMPERATURE_COEFFICIENT = "temperature_coefficient";
+    final String CLOTHES_STYLE_OFFICIAL = "style_official";
+    final String CLOTHES_STYLE_REGULAR = "style_regular";
+    final String CLOTHES_STYLE_SPORT = "style_sport";
+    final String CLOTHES_STYLE_EVENING = "style_evening";
+
+    private Weather weather;
+    private String style;
+    private Cursor cursor;
+
     RecyclerView mRcView_1;
     RecyclerView mRcView_2;
     RecyclerView mRcView_3;
@@ -32,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     List<File> sketches5;
     List<File> sketches6;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +65,21 @@ public class MainActivity extends AppCompatActivity {
         mRcView_4= (RecyclerView) findViewById(R.id.rcView_4);
         mRcView_5= (RecyclerView) findViewById(R.id.rcView_5);
         mRcView_6= (RecyclerView) findViewById(R.id.rcView_6);
+
+        weather = new Weather();
+        cursor = getContentResolver().query(CLOTHES_URI, null, null,
+                null, null);
+        cursor.moveToFirst();
+        style="regular";
+        clothesSet();
+
         sketches1=imageReader(Environment.getExternalStorageDirectory());
         sketches2=imageReader(Environment.getExternalStorageDirectory());
         sketches3=imageReader(Environment.getExternalStorageDirectory());
         sketches4=imageReader(Environment.getExternalStorageDirectory());
         sketches5=imageReader(Environment.getExternalStorageDirectory());
         sketches6=imageReader(Environment.getExternalStorageDirectory());
+
         setRecyclerAdapter(mRcView_1, sketches1);
         setRecyclerAdapter(mRcView_2, sketches2);
         setRecyclerAdapter(mRcView_3, sketches3);
@@ -67,6 +96,47 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public ClothesSet clothesSet(){
+        cursor.moveToFirst();
+        switch (style) {
+
+
+            case "official":
+                for(int i=0;i<cursor.getCount();i++){
+                    if(cursor.getString(4).equals("1")){
+
+                    }
+                    cursor.moveToNext();
+                }
+                break;
+            case "regular":
+                for(int i=0;i<cursor.getCount();i++){
+                    if(cursor.getString(5).equals("1")){
+
+                    }
+                    cursor.moveToNext();
+                }
+                break;
+            case "sport":
+                for(int i=0;i<cursor.getCount();i++){
+                    if(cursor.getString(6).equals("1")){
+
+                    }
+                    cursor.moveToNext();
+                }
+                break;
+            case "evening":
+                for(int i=0;i<cursor.getCount();i++){
+                    if(cursor.getString(7).equals("1")){
+
+                    }
+                    cursor.moveToNext();
+                }
+                break;
+        }
+        ClothesSet clothesSet = new ClothesSet();
+        return clothesSet;
+    }
     public void setRecyclerAdapter(RecyclerView recyclerView, List list){
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
