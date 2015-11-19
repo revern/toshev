@@ -35,9 +35,11 @@ public class ClothesProvider extends ContentProvider {
     static final String CLOTHES_STYLE_REGULAR = "style_regular";
     static final String CLOTHES_STYLE_SPORT = "style_sport";
     static final String CLOTHES_STYLE_EVENING = "style_evening";
+    static final String CLOTHES_WINDPROOF = "windproof";
+    static final String CLOTHES_RAIN_COVER = "rain_cover";
 
     //Database creating script
-    static final String DB_CREATE = "create table " + CLOTHES_TABLE + "(" + CLOTHES_ID + " integer primary key autoincrement, " + CLOTHES_NAME + " text, " + CLOTHES_LAYOUT + " text, " + CLOTHES_TEMPERATURE_COEFFICIENT + " integer, " + CLOTHES_STYLE_OFFICIAL + " boolean, " + CLOTHES_STYLE_REGULAR + " boolean, " + CLOTHES_STYLE_SPORT + " boolean, " + CLOTHES_STYLE_EVENING + " boolean" + ");";
+    static final String DB_CREATE = "create table " + CLOTHES_TABLE + "(" + CLOTHES_ID + " integer primary key autoincrement, " + CLOTHES_NAME + " text, " + CLOTHES_LAYOUT + " text, " + CLOTHES_TEMPERATURE_COEFFICIENT + " integer, " + CLOTHES_STYLE_OFFICIAL + " boolean, " + CLOTHES_STYLE_REGULAR + " boolean, " + CLOTHES_STYLE_SPORT + " boolean, " + CLOTHES_STYLE_EVENING + " boolean, " + CLOTHES_WINDPROOF + " boolean, "+ CLOTHES_RAIN_COVER + " boolean"  + ");";
 
     // // Uri
     //authority
@@ -206,6 +208,8 @@ public class ClothesProvider extends ContentProvider {
             cv.put(CLOTHES_STYLE_REGULAR, true);
             cv.put(CLOTHES_STYLE_SPORT, true);
             cv.put(CLOTHES_STYLE_EVENING, false);
+            cv.put(CLOTHES_WINDPROOF, true);
+            cv.put(CLOTHES_RAIN_COVER, true);
             db.insert(CLOTHES_TABLE, null, cv);
 
         }

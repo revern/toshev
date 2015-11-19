@@ -7,12 +7,12 @@ public class Clothes {
     private String name;
     private String layout;
     private int temperatureCoefficient;
-    private boolean windproof;
-    private boolean rainCover;
     private boolean style_official;
     private boolean style_regular;
     private boolean style_sport;
     private boolean style_evening;
+    private boolean windproof;
+    private boolean rainCover;
 
     public Clothes(){
 
@@ -22,12 +22,12 @@ public class Clothes {
         this.name=name;
         this.layout=layout;
         this.temperatureCoefficient=temperatureCoefficient;
-        this.windproof=windproof;
-        this.rainCover=rainCover;
         this.style_official=style_official;
         this.style_regular=style_regular;
         this.style_sport=style_sport;
         this.style_evening=style_evening;
+        this.windproof=windproof;
+        this.rainCover=rainCover;
     }
 
     public String getName() {

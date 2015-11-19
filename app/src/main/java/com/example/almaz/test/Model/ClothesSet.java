@@ -4,71 +4,63 @@ package com.example.almaz.test.Model;
  * Created by almaz on 14.11.2015.
  */
 public class ClothesSet {
-    private String head;
-    private String body;
-    private String bodyTop;
-    private String legs;
-    private String footwear;
-    private String accessory;
+    private Clothes head;
+    private Clothes body;
+    private Clothes bodyTop;
+    private Clothes legs;
+    private Clothes footwear;
+    private Clothes accessory;
 
     public ClothesSet(){
 
     }
 
-    public ClothesSet(String head, String body, String bodyTop, String legs, String footwear, String accessory){
-        this.head=head;
-        this.body=body;
-        this.bodyTop=bodyTop;
-        this.legs=legs;
-        this.footwear=footwear;
-        this.accessory=accessory;
-    }
 
-    public String getHead() {
+    public Clothes getHead() {
         return head;
     }
 
-    public void setHead(String head) {
+    public void setHead(Clothes head) {
         this.head = head;
     }
 
-    public String getBody() {
+    public Clothes getBody() {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(Clothes body) {
         this.body = body;
     }
 
-    public String getBodyTop() {
+    public Clothes getBodyTop() {
         return bodyTop;
     }
 
-    public void setBodyTop(String bodyTop) {
+    public void setBodyTop(Clothes bodyTop) {
         this.bodyTop = bodyTop;
     }
 
-    public String getLegs() {
+    public Clothes getLegs() {
         return legs;
     }
 
-    public void setLegs(String legs) {
+    public void setLegs(Clothes legs) {
         this.legs = legs;
     }
 
-    public String getFootwear() {
+    public Clothes getFootwear() {
         return footwear;
     }
 
-    public void setFootwear(String footwear) {
+    public void setFootwear(Clothes footwear) {
         this.footwear = footwear;
     }
 
-    public String getAccessory() {
+    public Clothes getAccessory() {
         return accessory;
     }
 
-    public void setAccessory(String accessory) {
+    public void setAccessory(Clothes accessory) {
         this.accessory = accessory;
     }
 }

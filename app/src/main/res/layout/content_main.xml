@@ -7,62 +7,35 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
     android:layout_margin="4dp"
+    android:gravity="center"
     tools:context=".MainActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:orientation="horizontal">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_1"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_2"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:orientation="horizontal">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_3"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_4"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="4dp"
-        android:orientation="horizontal">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_5"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcView_6"
-            android:layout_width="0dp"
-            android:layout_margin="4dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Official"
+        android:textSize="48dp"
+        android:id="@+id/official_style_button"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regular"
+        android:textSize="48dp"
+        android:id="@+id/regular_style_button"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Sport  "
+        android:textSize="48dp"
+        android:id="@+id/sport_style_button"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evening"
+        android:textSize="48dp"
+        android:id="@+id/evening_style_button"/>
+
 </LinearLayout>

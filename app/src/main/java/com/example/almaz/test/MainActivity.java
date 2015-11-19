@@ -1,5 +1,6 @@
 package com.example.almaz.test;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.almaz.test.Model.ClothesSet;
@@ -26,32 +28,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    final Uri CLOTHES_URI = Uri
-            .parse("content://almaz.example.com.test/contacts");
-    final String CLOTHES_NAME = "name";
-    final String CLOTHES_LAYOUT = "layout";
-    final String CLOTHES_TEMPERATURE_COEFFICIENT = "temperature_coefficient";
-    final String CLOTHES_STYLE_OFFICIAL = "style_official";
-    final String CLOTHES_STYLE_REGULAR = "style_regular";
-    final String CLOTHES_STYLE_SPORT = "style_sport";
-    final String CLOTHES_STYLE_EVENING = "style_evening";
-
-    private Weather weather;
-    private String style;
-    private Cursor cursor;
-
-    RecyclerView mRcView_1;
-    RecyclerView mRcView_2;
-    RecyclerView mRcView_3;
-    RecyclerView mRcView_4;
-    RecyclerView mRcView_5;
-    RecyclerView mRcView_6;
-    List<File> sketches1;
-    List<File> sketches2;
-    List<File> sketches3;
-    List<File> sketches4;
-    List<File> sketches5;
-    List<File> sketches6;
+    Button mOfficialStyleButton;
+    Button mRegularStyleButton;
+    Button mSportStyleButton;
+    Button mEveningStyleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,112 +39,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mRcView_1= (RecyclerView) findViewById(R.id.rcView_1);
-        mRcView_2= (RecyclerView) findViewById(R.id.rcView_2);
-        mRcView_3= (RecyclerView) findViewById(R.id.rcView_3);
-        mRcView_4= (RecyclerView) findViewById(R.id.rcView_4);
-        mRcView_5= (RecyclerView) findViewById(R.id.rcView_5);
-        mRcView_6= (RecyclerView) findViewById(R.id.rcView_6);
-
-        weather = new Weather();
-        cursor = getContentResolver().query(CLOTHES_URI, null, null,
-                null, null);
-        cursor.moveToFirst();
-        style="regular";
-        clothesSet();
-
-        sketches1=imageReader(Environment.getExternalStorageDirectory());
-        sketches2=imageReader(Environment.getExternalStorageDirectory());
-        sketches3=imageReader(Environment.getExternalStorageDirectory());
-        sketches4=imageReader(Environment.getExternalStorageDirectory());
-        sketches5=imageReader(Environment.getExternalStorageDirectory());
-        sketches6=imageReader(Environment.getExternalStorageDirectory());
-
-        setRecyclerAdapter(mRcView_1, sketches1);
-        setRecyclerAdapter(mRcView_2, sketches2);
-        setRecyclerAdapter(mRcView_3, sketches3);
-        setRecyclerAdapter(mRcView_4, sketches4);
-        setRecyclerAdapter(mRcView_5, sketches5);
-        setRecyclerAdapter(mRcView_6, sketches6);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mOfficialStyleButton = (Button) findViewById(R.id.official_style_button);
+        mRegularStyleButton = (Button) findViewById(R.id.regular_style_button);
+        mSportStyleButton = (Button) findViewById(R.id.sport_style_button);
+        mEveningStyleButton = (Button) findViewById(R.id.evening_style_button);
+        mOfficialStyleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ClothesShowActivity.class);
+                i.putExtra(ClothesShowActivity.EXTRA_STYLE, "official");
+                startActivity(i);
             }
         });
-    }
-
-    public ClothesSet clothesSet(){
-        cursor.moveToFirst();
-        switch (style) {
-
-
-            case "official":
-                for(int i=0;i<cursor.getCount();i++){
-                    if(cursor.getString(4).equals("1")){
-
-                    }
-                    cursor.moveToNext();
-                }
-                break;
-            case "regular":
-                for(int i=0;i<cursor.getCount();i++){
-                    if(cursor.getString(5).equals("1")){
-
-                    }
-                    cursor.moveToNext();
-                }
-                break;
-            case "sport":
-                for(int i=0;i<cursor.getCount();i++){
-                    if(cursor.getString(6).equals("1")){
-
-                    }
-                    cursor.moveToNext();
-                }
-                break;
-            case "evening":
-                for(int i=0;i<cursor.getCount();i++){
-                    if(cursor.getString(7).equals("1")){
-
-                    }
-                    cursor.moveToNext();
-                }
-                break;
-        }
-        ClothesSet clothesSet = new ClothesSet();
-        return clothesSet;
-    }
-    public void setRecyclerAdapter(RecyclerView recyclerView, List list){
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(), list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(itemAnimator);
-    }
-
-    ArrayList<File> imageReader(File root){
-        ArrayList<File> a = new ArrayList<>();
-        File[] files = root.listFiles();
-        try {
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isDirectory()) {
-                    a.addAll(imageReader(files[i]));
-                } else {
-                    if (files[i].getName().endsWith(".jpg") || files[i].getName().endsWith(".jpeg") || files[i].getName().endsWith(".png") || files[i].getName().endsWith(".gif")) {
-                        a.add(files[i]);
-                    }
-                }
-
+        mRegularStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ClothesShowActivity.class);
+                i.putExtra(ClothesShowActivity.EXTRA_STYLE, "regular");
+                startActivity(i);
             }
-        }catch (Exception e){
-            Log.d("EXEPTION:", e.getStackTrace().toString());
-        }
-        return a;
+        });
+        mSportStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ClothesShowActivity.class);
+                i.putExtra(ClothesShowActivity.EXTRA_STYLE, "sport");
+                startActivity(i);
+            }
+        });
+        mEveningStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ClothesShowActivity.class);
+                i.putExtra(ClothesShowActivity.EXTRA_STYLE, "evening");
+                startActivity(i);
+            }
+        });
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
