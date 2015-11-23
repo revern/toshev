@@ -16,7 +16,13 @@ import android.view.View;
 
 import com.example.almaz.test.Model.Clothes;
 import com.example.almaz.test.Model.ClothesSet;
+import com.example.almaz.test.Model.Forecast;
 import com.example.almaz.test.Model.Weather;
+import com.example.almaz.test.openweatherapi.ForecastService;
+import com.example.almaz.test.openweatherapi.WeatherRequest;
+import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,12 +73,20 @@ public class ClothesShowActivity extends AppCompatActivity {
     List<File> sketches5;
     List<File> sketches6;
 
+    private SpiceManager spiceManager = new SpiceManager(ForecastService.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes_show);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //TODO: add locations
+        double currentLatitude = 55.7679;
+        double currentLongitude = 49.1631;
+
+        processLocation(currentLatitude, currentLongitude);
 
         mRcView_1= (RecyclerView) findViewById(R.id.rcView_1);
         mRcView_2= (RecyclerView) findViewById(R.id.rcView_2);
@@ -112,6 +126,39 @@ public class ClothesShowActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spiceManager.start(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        spiceManager.shouldStop();
+    }
+
+    protected SpiceManager getSpiceManager() {
+        return spiceManager;
+    }
+
+    public void processLocation(double currentLatitude, double currentLongitude) {
+
+        WeatherRequest request = new WeatherRequest(currentLongitude, currentLatitude);
+        getSpiceManager().execute(request, new RequestListener<Forecast>() {
+            @Override
+            public void onRequestFailure(SpiceException spiceException) {
+
+            }
+
+            @Override
+            public void onRequestSuccess(Forecast currentForecast) {
+                // TODO: here you can get all your weather parametrs
+                Log.d("TAG", currentForecast.name);
+            }
+        });
+    }
+
 
     public ClothesSet clothesSet(){
         cursor.moveToFirst();
